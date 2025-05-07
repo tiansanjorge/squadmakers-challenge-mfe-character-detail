@@ -1,21 +1,17 @@
-import "./App.css";
-import { Tarjeta } from "tarjeta-lib";
+import { CharacterDetail } from "./components/CharacterDetail";
 
 function App() {
   return (
-    <>
-      <Tarjeta
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <CharacterDetail
         nombre="Rick Sanchez"
         especie="Humano"
         imagen="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        ultimaUbicacion="Citadel of Ricks"
+        ultimaUbicacion="Earth (C-137)"
         primeraAparicion="Pilot"
         estado="Vivo"
-        esFavorito
-        onClick={() => alert("Clicked")}
       />
-      <h1 className="underline">Hello</h1>
-    </>
+    </div>
   );
 }
 
