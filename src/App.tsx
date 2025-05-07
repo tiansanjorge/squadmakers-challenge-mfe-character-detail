@@ -2,16 +2,21 @@ import CharacterDetail from "./components/CharacterDetail";
 
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <>
       <CharacterDetail
         nombre="Rick Sanchez"
-        especie="Humano"
         imagen="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        ultimaUbicacion="Earth (C-137)"
-        primeraAparicion="Pilot"
+        especie="Humano"
+        ubicacion="Citadel of Ricks"
         estado="Vivo"
+        genero="Masculino"
+        origen="Earth (C-137)"
+        episodios={[
+          { nombre: "Pilot", codigo: "S01E01" },
+          { nombre: "Lawnmower Dog", codigo: "S01E02" },
+        ]}
       />
-    </div>
+    </>
   );
 }
 

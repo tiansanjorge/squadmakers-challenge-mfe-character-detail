@@ -1,40 +1,27 @@
-import { useEffect, useState } from "react";
-
 type CharacterDetailProps = {
   nombre: string;
   imagen: string;
   especie: string;
-  ultimaUbicacion: string;
-  primeraAparicion: string;
   estado: "Vivo" | "Muerto" | "Desconocido";
   genero: string;
-  episodios: string[];
+  origen: string;
+  ubicacion: string;
+  episodios: {
+    nombre: string;
+    codigo: string;
+  }[];
 };
 
-type Episodio = {
-  id: number;
-  name: string;
-  episode: string;
-};
-
-export const CharacterDetail = ({
+const CharacterDetail = ({
   nombre,
   imagen,
   especie,
-  ultimaUbicacion,
-  primeraAparicion,
   estado,
   genero,
+  origen,
+  ubicacion,
   episodios,
 }: CharacterDetailProps) => {
-  const [detallesEpisodios, setDetallesEpisodios] = useState<Episodio[]>([]);
-
-  useEffect(() => {
-    Promise.all(episodios.map((url) => fetch(url).then((res) => res.json())))
-      .then((data) => setDetallesEpisodios(data))
-      .catch((error) => console.error("Error cargando episodios:", error));
-  }, [episodios]);
-
   return (
     <div className="p-4 max-w-md bg-white rounded-xl shadow-lg">
       <img
@@ -49,25 +36,28 @@ export const CharacterDetail = ({
           <strong>Estado:</strong> {estado}
         </p>
         <p>
-          <strong>Género:</strong> {genero}
+          <strong className="mt-4 text-sm text-red-500">Género:</strong>{" "}
+          {genero}
         </p>
         <p>
-          <strong>Primera aparición:</strong> {primeraAparicion}
+          <strong>Origen:</strong> {origen}
         </p>
         <p>
-          <strong>Última ubicación:</strong> {ultimaUbicacion}
+          <strong>Ubicación:</strong> {ubicacion}
         </p>
-      </div>
-      <div className="mt-4">
-        <h3 className="text-md font-semibold mb-2">Episodios:</h3>
-        <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
-          {detallesEpisodios.map((ep) => (
-            <li key={ep.id}>
-              {ep.episode} - {ep.name}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-3">
+          <strong>Episodios:</strong>
+          <ul className="list-disc list-inside mt-1 space-y-1">
+            {episodios.map((ep, i) => (
+              <li key={i}>
+                {ep.codigo} - {ep.nombre}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
 };
+
+export default CharacterDetail;
