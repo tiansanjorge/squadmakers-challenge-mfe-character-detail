@@ -1,4 +1,4 @@
-import { CharacterDetail } from "./components/CharacterDetail";
+import CharacterDetail from "./components/CharacterDetail";
 
 function App() {
   return (

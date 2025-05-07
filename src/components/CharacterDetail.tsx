@@ -7,7 +7,7 @@ type CharacterDetailProps = {
   estado: "Vivo" | "Muerto" | "Desconocido";
 };
 
-export const CharacterDetail = ({
+const CharacterDetail = ({
   nombre,
   imagen,
   especie,
@@ -38,3 +38,5 @@ export const CharacterDetail = ({
     </div>
   );
 };
+
+export default CharacterDetail;
