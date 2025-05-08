@@ -1,3 +1,5 @@
+import "../index.css";
+
 type CharacterDetailProps = {
   nombre: string;
   imagen: string;
@@ -36,8 +38,7 @@ const CharacterDetail = ({
           <strong>Estado:</strong> {estado}
         </p>
         <p>
-          <strong className="mt-4 text-sm text-red-500">Género:</strong>{" "}
-          {genero}
+          <strong>Género:</strong> {genero}
         </p>
         <p>
           <strong>Origen:</strong> {origen}
