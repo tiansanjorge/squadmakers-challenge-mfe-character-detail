@@ -12,6 +12,8 @@ type CharacterDetailProps = {
     nombre: string;
     codigo: string;
   }[];
+  esFavorito?: boolean;
+  onToggleFavorito?: () => void;
 };
 
 const CharacterDetail = ({
@@ -23,9 +25,19 @@ const CharacterDetail = ({
   origen,
   ubicacion,
   episodios,
+  esFavorito = false,
+  onToggleFavorito,
 }: CharacterDetailProps) => {
   return (
-    <div className="p-4 max-w-md bg-white rounded-xl shadow-lg">
+    <div className="p-4 max-w-md bg-white rounded-xl shadow-lg relative">
+      {/* Estrella de favorito */}
+      <button
+        onClick={onToggleFavorito}
+        className="absolute top-4 right-4 bg-lime-200 rounded-full p-2"
+      >
+        <span className="text-green-700 text-xl">{esFavorito ? "★" : "☆"}</span>
+      </button>
+
       <img
         src={imagen}
         alt={nombre}
@@ -33,6 +45,7 @@ const CharacterDetail = ({
       />
       <h2 className="text-2xl font-bold text-center mt-4">{nombre}</h2>
       <p className="text-center text-sm text-gray-600">{especie}</p>
+
       <div className="mt-4 text-sm text-gray-700 space-y-1">
         <p>
           <strong>Estado:</strong> {estado}
@@ -49,7 +62,7 @@ const CharacterDetail = ({
         <div className="mt-3">
           <strong>Episodios:</strong>
           <ul className="list-disc list-inside mt-1 space-y-1">
-            {episodios.map((ep, i) => (
+            {episodios.slice(0, 5).map((ep, i) => (
               <li key={i}>
                 {ep.codigo} - {ep.nombre}
               </li>
