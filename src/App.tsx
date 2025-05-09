@@ -1,3 +1,4 @@
+import React from "react";
 import CharacterDetail from "./components/CharacterDetail";
 
 function App() {
