@@ -27,7 +27,22 @@ describe("CharacterDetail", () => {
 
   it("muestra la estrella llena si es favorito", () => {
     render(<CharacterDetail {...mockCharacter} esFavorito={true} />);
-    expect(screen.getByText("★")).toBeInTheDocument();
+    const estrellaLlena = screen.getByAltText("Quitar de favoritos");
+    expect(estrellaLlena).toBeInTheDocument();
+    expect(estrellaLlena).toHaveAttribute(
+      "src",
+      expect.stringContaining("star-full")
+    );
+  });
+
+  it("muestra la estrella vacía si no es favorito", () => {
+    render(<CharacterDetail {...mockCharacter} esFavorito={false} />);
+    const estrellaVacia = screen.getByAltText("Agregar a favoritos");
+    expect(estrellaVacia).toBeInTheDocument();
+    expect(estrellaVacia).toHaveAttribute(
+      "src",
+      expect.stringContaining("star-empty")
+    );
   });
 
   it("llama a onToggleFavorito cuando se hace clic en la estrella", () => {

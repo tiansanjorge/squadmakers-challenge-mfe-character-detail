@@ -1,5 +1,7 @@
 import React from "react";
 import "../index.css";
+import starFull from "../assets/star-full.png";
+import starEmpty from "../assets/star-empty.png";
 
 type CharacterDetailProps = {
   nombre: string;
@@ -29,14 +31,17 @@ const CharacterDetail = ({
   esFavorito = false,
   onToggleFavorito,
 }: CharacterDetailProps) => {
+  const starSrc = esFavorito ? starFull : starEmpty;
+
+  const starAlt = esFavorito ? "Quitar de favoritos" : "Agregar a favoritos";
   return (
     <div className="p-4 max-w-md bg-white rounded-xl shadow-lg relative">
       {/* Estrella de favorito */}
       <button
         onClick={onToggleFavorito}
-        className="absolute top-4 right-4 bg-lime-200 rounded-full p-2"
+        className="absolute top-4 right-4 rounded-full p-2"
       >
-        <span className="text-green-700 text-xl">{esFavorito ? "★" : "☆"}</span>
+        <img src={starSrc} alt={starAlt} className="w-6 h-6" />
       </button>
 
       <img
