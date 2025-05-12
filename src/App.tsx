@@ -16,6 +16,7 @@ function App() {
           { nombre: "Pilot", codigo: "S01E01" },
           { nombre: "Lawnmower Dog", codigo: "S01E02" },
         ]}
+        backgroundImageUrl="/detail-bg.jpg"
       />
     </>
   );

@@ -17,6 +17,7 @@ type CharacterDetailProps = {
   }[];
   esFavorito?: boolean;
   onToggleFavorito?: () => void;
+  backgroundImageUrl?: string;
 };
 
 const CharacterDetail = ({
@@ -30,50 +31,73 @@ const CharacterDetail = ({
   episodios,
   esFavorito = false,
   onToggleFavorito,
+  backgroundImageUrl,
 }: CharacterDetailProps) => {
   const starSrc = esFavorito ? starFull : starEmpty;
+  const estadoColor =
+    estado === "Vivo"
+      ? "bg-green-100 text-green-700"
+      : "bg-gray-100 text-gray-700";
 
-  const starAlt = esFavorito ? "Quitar de favoritos" : "Agregar a favoritos";
   return (
-    <div className="p-4 max-w-md bg-white rounded-xl shadow-lg relative">
-      {/* Estrella de favorito */}
-      <button
-        onClick={onToggleFavorito}
-        className="absolute top-4 right-4 rounded-full p-2"
+    <div className="max-w-3xl mx-auto rounded-xl overflow-hidden shadow-lg bg-gray-50">
+      {/* Header con imagen */}
+      <div
+        className="min-h-32 bg-cover bg-center relative"
+        style={{
+          backgroundImage: backgroundImageUrl
+            ? `url(${backgroundImageUrl})`
+            : undefined,
+        }}
       >
-        <img src={starSrc} alt={starAlt} className="w-6 h-6" />
-      </button>
+        <img
+          src={imagen}
+          alt={nombre}
+          className="w-32 h-32 rounded-full border-4 border-white absolute left-4 top-[64px]"
+        />
+      </div>
 
-      <img
-        src={imagen}
-        alt={nombre}
-        className="w-32 h-32 mx-auto rounded-full"
-      />
-      <h2 className="text-2xl font-bold text-center mt-4">{nombre}</h2>
-      <p className="text-center text-sm text-gray-600">{especie}</p>
+      {/* Contenido */}
+      <div className="pt-4 px-6 pb-6">
+        <div className="ml-36">
+          <div className="flex  gap-3 ">
+            <h2 className="text-2xl font-bold">{nombre}</h2>
+            <button onClick={onToggleFavorito} className="">
+              <img src={starSrc} alt="favorito" className="w-5 h-5" />
+            </button>
+          </div>
 
-      <div className="mt-4 text-sm text-gray-700 space-y-1">
-        <p>
-          <strong>Estado:</strong> {estado}
-        </p>
-        <p>
-          <strong>Género:</strong> {genero}
-        </p>
-        <p>
-          <strong>Origen:</strong> {origen}
-        </p>
-        <p>
-          <strong>Ubicación:</strong> {ubicacion}
-        </p>
-        <div className="mt-3">
-          <strong>Episodios:</strong>
-          <ul className="list-disc list-inside mt-1 space-y-1">
-            {episodios.slice(0, 5).map((ep, i) => (
-              <li key={i}>
-                {ep.codigo} - {ep.nombre}
-              </li>
-            ))}
-          </ul>
+          <p className="text-gray-500">{especie}</p>
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Info */}
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h3 className="font-semibold text-gray-700 mb-2">Información</h3>
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold">Género:</span> {genero}
+            </p>
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold">Origen:</span> {origen}
+            </p>
+            <p className="text-sm text-gray-600 mt-2">Estado:</p>
+            <span
+              className={`inline-block mt-1 px-3 py-1 text-sm font-medium rounded-full ${estadoColor}`}
+            >
+              {estado}
+            </span>
+          </div>
+
+          {/* Episodios */}
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h3 className="font-semibold text-gray-700 mb-2">Episodios</h3>
+            <ul className="text-sm text-gray-600 space-y-1">
+              {episodios.slice(0, 5).map((ep, i) => (
+                <li key={i}>
+                  {ep.codigo} - {ep.nombre}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
