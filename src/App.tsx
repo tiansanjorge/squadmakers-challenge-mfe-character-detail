@@ -18,7 +18,7 @@ function App() {
             imagen="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
             especie="Humano"
             ubicacion="Citadel of Ricks"
-            estado="Vivo"
+            estado="Muerto"
             genero="Masculino"
             origen="Earth (C-137)"
             episodios={[

@@ -2,8 +2,9 @@ import React from "react";
 import "../index.css";
 import starFull from "../assets/star-full.png";
 import starEmpty from "../assets/star-empty.png";
-import { ArrowLeft } from "lucide-react";
-import { MoreVertical } from "lucide-react";
+import aliveIcon from "../assets/alive.png";
+import deadIcon from "../assets/dead.png";
+import unknownIcon from "../assets/unknown.png";
 
 type CharacterDetailProps = {
   nombre: string;
@@ -35,15 +36,38 @@ const CharacterDetail = ({
   esFavorito = false,
   onToggleFavorito,
   backgroundImageUrl,
-  onBack,
 }: CharacterDetailProps) => {
   const starSrc = esFavorito ? starFull : starEmpty;
   const estadoColor =
     estado === "Vivo"
-      ? "tw-bg-green-100 tw-text-green-700"
+      ? "tw-bg-[#E7F3D8] tw-text-[#354E18]"
       : estado === "Muerto"
       ? "tw-bg-red-100 tw-text-red-700"
       : "tw-bg-gray-100 tw-text-gray-700";
+
+  // componente de personaje relacionado para reutilizar
+  const RelatedCard = () => (
+    <div className="tw-bg-white tw-rounded-xl tw-shadow tw-w-[192px] tw-min-w-[192px] tw-flex-none tw-font-sans tw-mt-2 tw-mb-3">
+      <div className="tw-relative">
+        <img
+          src={imagen}
+          alt={nombre}
+          className="tw-w-full tw-h-auto tw-rounded-t-xl"
+        />
+        <button className="tw-absolute tw-top-2 tw-right-2 tw-bg-white tw-rounded-full tw-w-7 tw-h-7 tw-flex tw-items-center tw-justify-center tw-shadow">
+          <img src={starSrc} alt="favoritos" className="tw-w-3.5 tw-h-3.5 " />
+        </button>
+      </div>
+      <div className="tw-p-3">
+        <h3 className="tw-text-sm tw-font-semibold tw-text-gray-800">
+          {nombre}
+        </h3>
+        <p className="tw-text-gray-400 tw-text-xs tw-font-semibold">
+          {especie}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="tw-rounded-xl tw-bg-[#F0F1EC]">
@@ -61,73 +85,115 @@ const CharacterDetail = ({
             : undefined,
         }}
       >
-        {/* Botones */}
-        {!onBack && (
-          <div>
-            <button
-              onClick={onBack}
-              className="tw-absolute tw-top-3 tw-left-3 tw-rounded-full tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-shadow sm:tw-hidden"
-            >
-              <ArrowLeft className="tw-w-8 tw-h-8 tw-text-white" />
-            </button>
-            <MoreVertical className="tw-absolute tw-top-4 tw-right-3 tw-w-8 tw-h-8 tw-text-white tw-cursor-pointer" />
-          </div>
-        )}
-
         <img
           src={imagen}
           alt={nombre}
-          className="tw-w-24 tw-h-24 sm:tw-w-32 sm:tw-h-32 tw-rounded-full tw-border-4 tw-border-white tw-absolute tw-left-6 tw-top-[64px] tw-z-10"
+          className="tw-w-24 tw-h-24 sm:tw-w-32 sm:tw-h-32 tw-rounded-full tw-border-4 tw-border-white tw-absolute tw-left-1/2 tw-translate-x-[-48px] sm:tw-translate-x-0 sm:tw-left-6 tw-top-[80px] sm:tw-top-[64px] tw-z-10"
         />
       </div>
 
-      <div className="tw-pt-4 tw-px-5 tw-pb-5">
+      <div className="tw-pt-14 sm:tw-pt-4 tw-px-5 tw-pb-5">
         <div className="tw-text-center sm:tw-text-left sm:tw-ml-40">
-          <div className="tw-flex tw-items-center tw-justify-center sm:tw-justify-start tw-gap-3 tw-mb-1">
-            <h2 className="tw-text-2xl tw-font-bold">{nombre}</h2>
+          <div className="tw-flex tw-items-center tw-justify-center sm:tw-justify-start tw-gap-3">
+            <h2 className="tw-text-2xl tw-font-semibold">{nombre}</h2>
             <button onClick={onToggleFavorito}>
               <img src={starSrc} alt="favorito" className="tw-w-5 tw-h-5" />
             </button>
           </div>
-          <p className="tw-text-gray-500 tw-text-sm">{especie}</p>
+          <p className="tw-text-gray-400 tw-text-sm tw-font-semibold">
+            {especie}
+          </p>
         </div>
 
-        <div className="tw-mt-6 tw-flex tw-justify-between tw-gap-4">
-          <div className="tw-bg-white tw-p-4 tw-rounded-lg tw-shadow">
+        {/* Información */}
+        <div className="tw-mt-6 tw-flex tw-flex-col sm:tw-flex-row tw-justify-between tw-gap-4">
+          <div className=" tw-bg-white tw-p-4 tw-rounded-lg tw-shadow">
             <h3 className="tw-font-semibold tw-text-gray-700 tw-mb-2">
               Información
             </h3>
-            <p className="tw-text-sm tw-text-gray-600">
-              <span className="tw-text-sm tw-font-semibold tw-text-[#808C73]">
-                Género:
-              </span>
-              <br /> {genero}
-            </p>
-            <p className="tw-text-sm tw-text-gray-600">
-              <span className="tw-text-sm tw-font-semibold tw-text-[#808C73]">
-                Origen:
-              </span>
-              <br /> {origen}
-            </p>
-            <p className="tw-text-sm tw-text-gray-600 tw-mt-2">Estado:</p>
-            <span
-              className={`tw-inline-block tw-mt-1 tw-px-3 tw-py-1 tw-text-sm tw-font-medium tw-rounded-full ${estadoColor}`}
-            >
-              {estado}
-            </span>
+            <div className="tw-flex sm:tw-flex-col tw-flex-wrap">
+              <p className="tw-text-sm tw-w-1/2 sm:tw-w-auto tw-text-gray-600 tw-mb-4">
+                <span className="tw-text-xs tw-font-semibold tw-text-[#808C73]">
+                  Género:
+                </span>
+                <br /> {genero}
+              </p>
+              <p className="tw-text-sm tw-w-1/2 sm:tw-w-auto tw-text-gray-600 tw-mb-4">
+                <span className="tw-text-xs tw-font-semibold tw-text-[#808C73]">
+                  Origen:
+                </span>
+                <br /> {origen}
+              </p>
+              <div className="tw-flex tw-flex-col tw-mb-2">
+                <p className="tw-text-xs tw-w-1/2 tw-mb-1 sm:tw-w-auto tw-font-semibold tw-text-[#808C73]">
+                  Estado:
+                </p>
+                <div
+                  className={`tw-flex tw-gap-1 tw-max-w-fit tw-items-center tw-mt-1 tw-px-3 tw-py-1 tw-text-sm tw-font-semibold tw-rounded-full ${estadoColor}`}
+                >
+                  <img
+                    src={
+                      estado === "Vivo"
+                        ? aliveIcon
+                        : estado === "Muerto"
+                        ? deadIcon
+                        : unknownIcon
+                    }
+                    alt={estado}
+                    className="tw-w-4 tw-h-4"
+                  />
+                  {estado}
+                </div>
+              </div>
+            </div>
           </div>
 
+          {/* Episodios */}
           <div className="tw-bg-white tw-p-4 tw-rounded-lg tw-shadow tw-w-full">
             <h3 className="tw-font-semibold tw-text-gray-700 tw-mb-2">
               Episodios
             </h3>
-            <ul className="tw-text-sm tw-text-gray-600 tw-space-y-1">
+            <ul className="tw-text-sm tw-text-gray-600 tw-space-y-3 ">
               {episodios.slice(0, 5).map((ep, i) => (
-                <li key={i}>
-                  {ep.codigo} - {ep.nombre}
+                <li key={i} className="">
+                  <div>
+                    <span className="tw-text-[#808C73] tw-me-2">
+                      {ep.codigo}
+                    </span>
+                    {ep.nombre}
+                  </div>
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        {/* ubicacion actual y origen */}
+        <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-4 tw-text-sm tw-mt-6">
+          <div className="tw-w-1/2 tw-flex tw-flex-col">
+            <p className="tw-text-xs tw-font-bold tw-text-[#808C73] tw-mb-1">
+              First seen in
+            </p>
+            <p className="tw-text-gray-500">{origen}</p>
+          </div>
+          <div className="tw-w-1/2 tw-flex tw-flex-col">
+            <p className="tw-text-xs tw-font-bold tw-text-[#808C73] tw-mb-1">
+              Last known location
+            </p>
+            <p className="tw-text-gray-500">{ubicacion}</p>
+          </div>
+        </div>
+
+        {/* Persoajes Relacionados */}
+
+        <div className="tw-text-sm tw-mt-6">
+          <h3 className="tw-font-semibold tw-text-gray-700 tw-mb-2">
+            Personajes relacionados
+          </h3>
+          <div className="tw-flex tw-gap-4 tw-overflow-x-scroll">
+            <RelatedCard />
+            <RelatedCard />
+            <RelatedCard />
           </div>
         </div>
       </div>
