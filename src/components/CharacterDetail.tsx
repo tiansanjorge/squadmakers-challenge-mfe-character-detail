@@ -49,17 +49,19 @@ const CharacterDetail = ({
   const RelatedCard = () => (
     <div className="tw-bg-white tw-rounded-xl tw-shadow tw-w-[192px] tw-min-w-[192px] tw-flex-none tw-font-sans tw-mt-2 tw-mb-3">
       <div className="tw-relative">
-        <img
-          src={imagen}
-          alt={nombre}
-          className="tw-w-full tw-h-auto tw-rounded-t-xl"
-        />
+        <div className="tw-h-[144px] tw-w-full tw-overflow-hidden tw-flex tw-items-center tw-justify-center">
+          <img
+            src={imagen}
+            alt={nombre}
+            className="tw-w-full tw-h-[144px] tw-object-cover tw-object-center tw-rounded-t-xl"
+          />
+        </div>
         <button className="tw-absolute tw-top-2 tw-right-2 tw-bg-white tw-rounded-full tw-w-7 tw-h-7 tw-flex tw-items-center tw-justify-center tw-shadow">
           <img src={starSrc} alt="favoritos" className="tw-w-3.5 tw-h-3.5 " />
         </button>
       </div>
       <div className="tw-p-3">
-        <h3 className="tw-text-sm tw-font-semibold tw-text-gray-800">
+        <h3 className="tw-text-sm tw-font-semibold tw-text-gray-800 mb-1">
           {nombre}
         </h3>
         <p className="tw-text-gray-400 tw-text-xs tw-font-semibold">
